@@ -65,11 +65,11 @@ EXAMPLES:
   # With custom subject
   bun run index.ts --to=x@y.com --from=me@gmail.com --file=report.pdf --subject="Monthly Report"
 `);
-  throw new UsageError("Help requested");
+  process.exit(0);
 }
 function showVersion() {
   console.log(`Apple Mail CLI v${VERSION}`);
-  throw new UsageError("Version requested");
+  process.exit(0);
 }
 function parseCliArgs(args) {
   const { values, positionals } = parseArgs({
