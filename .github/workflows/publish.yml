@@ -1,0 +1,78 @@
+name: Publish to npm
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Bump version and publish
+        run: |
+          # Get the latest tag
+          latest_tag=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+
+          # Get commits since last tag (or all commits if no tags)
+          if [ -z "$latest_tag" ]; then
+            commits=$(git log --pretty=format:"%s")
+          else
+            commits=$(git log ${latest_tag}..HEAD --pretty=format:"%s")
+          fi
+
+          # Determine version bump type from commits
+          bump_type="patch"
+
+          if echo "$commits" | grep -qE "^feat!|BREAKING CHANGE"; then
+            bump_type="major"
+          elif echo "$commits" | grep -qE "^feat:"; then
+            bump_type="minor"
+          elif echo "$commits" | grep -qE "^fix:"; then
+            bump_type="patch"
+          else
+            # No conventional commits found, skip version bump
+            echo "No conventional commits found. Skipping version bump and publish."
+            exit 0
+          fi
+
+          echo "Bumping version: $bump_type"
+
+          # Bump version using npm version
+          new_version=$(npm version $bump_type -m "chore: bump version to %s" --no-git-tag-version | sed 's/^v//')
+
+          # Build the project (runs the version script which adds dist to git)
+          bun run build
+
+          # Commit version change and tag
+          git add package.json package-lock.json
+          git commit -m "chore: bump version to v${new_version}"
+          git tag -a "v${new_version}" -m "v${new_version}"
+
+          # Push changes and tags
+          git push origin main --follow-tags
+
+          # Publish to npm
+          npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

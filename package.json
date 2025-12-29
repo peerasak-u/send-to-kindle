@@ -12,7 +12,8 @@
     "dev": "bun --watch run index.ts",
     "test": "bun test",
     "build": "bun build index.ts --outdir dist --target bun",
-    "prepublishOnly": "bun run build"
+    "prepublishOnly": "bun run build",
+    "version": "bun run build && git add dist"
   },
   "devDependencies": {
     "@types/bun": "latest"
