@@ -65,11 +65,14 @@ jobs:
           # Bump version using npm version (no git tag)
           new_version=$(npm version $bump_type --no-git-tag-version | sed 's/^v//')
 
+          # Update VERSION constant in src/cli.ts
+          sed -i "s/const VERSION = \".*\";/const VERSION = \"${new_version}\";/" src/cli.ts
+
           # Build the project
           bun run build
 
           # Force add dist (it's in .gitignore) and commit version change
-          git add -f package.json dist
+          git add -f package.json src/cli.ts dist
           git commit -m "chore: bump version to v${new_version}"
           git tag -a "v${new_version}" -m "v${new_version}"
 
