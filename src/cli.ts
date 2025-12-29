@@ -18,6 +18,7 @@ REQUIRED OPTIONS:
 
 OPTIONAL:
   --subject <text>   Subject prefix (default: "Daily News")
+  --message <text>   Body message for the email
   --help             Show this help message
   --version          Show version number
 
@@ -45,6 +46,7 @@ export function parseCliArgs(args: string[]): CliArgs {
       from: { type: "string" },
       file: { type: "string" },
       subject: { type: "string" },
+      message: { type: "string" },
       help: { type: "boolean", short: "h" },
       version: { type: "boolean", short: "v" },
     },
@@ -70,5 +72,6 @@ export function parseCliArgs(args: string[]): CliArgs {
     from: values.from!,
     file: values.file!,
     subject: values.subject,
+    message: values.message,
   };
 }

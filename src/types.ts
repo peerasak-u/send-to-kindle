@@ -3,6 +3,7 @@ export interface CliArgs {
   from: string;
   file: string;
   subject?: string;
+  message?: string;
 }
 
 export interface EmailParams {
@@ -10,4 +11,5 @@ export interface EmailParams {
   from: string;
   file: string;
   subject: string;
+  message?: string;
 }

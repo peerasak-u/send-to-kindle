@@ -13,6 +13,10 @@ export async function sendEmail(params: EmailParams): Promise<string> {
     params.subject,
   ];
 
+  if (params.message) {
+    args.push(params.message);
+  }
+
   const proc = Bun.$([
     "osascript",
     "-l",

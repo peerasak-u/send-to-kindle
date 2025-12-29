@@ -17,6 +17,7 @@ async function main() {
       from: cliArgs.from,
       file: cliArgs.file,
       subject: cliArgs.subject ?? "Daily News",
+      message: cliArgs.message,
     };
 
     // Validate inputs

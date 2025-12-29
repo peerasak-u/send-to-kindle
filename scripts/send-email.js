@@ -2,13 +2,14 @@
 
 function run(argv) {
   if (argv.length < 3) {
-    throw new Error("Usage: send-email.js <recipient> <sender> <attachment-path> [subject-prefix]\nExample: send-email.js kindle@kindle.com me@gmail.com /path/to/file.pdf 'Daily News'");
+    throw new Error("Usage: send-email.js <recipient> <sender> <attachment-path> [subject-prefix] [message-body]\nExample: send-email.js kindle@kindle.com me@gmail.com /path/to/file.pdf 'Daily News' 'Here is your document'");
   }
 
   const recipientEmail = argv[0];
   const senderEmail = argv[1];
   const attachmentPath = argv[2];
   const subjectPrefix = argv[3] || "Daily News";
+  const messageBody = argv[4] || "";
 
   const mail = Application("Mail");
   mail.includeStandardAdditions = true;
@@ -24,7 +25,7 @@ function run(argv) {
 
   const newMessage = mail.OutgoingMessage({
     subject: emailSubject,
-    content: "",
+    content: messageBody,
     visible: false,
     sender: senderEmail
   });
