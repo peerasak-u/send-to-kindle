@@ -2,7 +2,7 @@ import { parseArgs } from "node:util";
 import { UsageError } from "./errors.ts";
 import type { CliArgs } from "./types.ts";
 
-const VERSION = "1.0.9";
+const VERSION = "1.0.10";
 
 export function showHelp(): never {
   console.log(`

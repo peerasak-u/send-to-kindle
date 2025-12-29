@@ -39,7 +39,7 @@ class UsageError extends CliError {
 }
 
 // src/cli.ts
-var VERSION = "1.0.0";
+var VERSION = "1.0.10";
 function showHelp() {
   console.log(`
 Apple Mail CLI - Send emails with attachments via Mail.app
