@@ -20,6 +20,10 @@
   "peerDependencies": {
     "typescript": "^5"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/peerasak-u/send-to-kindle"
+  },
   "publishConfig": {
     "access": "public"
   },
