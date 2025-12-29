@@ -6,24 +6,9 @@ const SCRIPT_DIR = import.meta.dir;
 const JXA_SCRIPT = `${SCRIPT_DIR}/../scripts/send-email.js`;
 
 export async function sendEmail(params: EmailParams): Promise<string> {
-  const args = [
-    params.to,
-    params.from,
-    params.file,
-    params.subject,
-  ];
+  const messageArg = params.message ? `"${params.message}"` : "";
 
-  if (params.message) {
-    args.push(params.message);
-  }
-
-  const proc = Bun.$([
-    "osascript",
-    "-l",
-    "JavaScript",
-    JXA_SCRIPT,
-    ...args,
-  ]);
+  const proc = Bun.$`osascript -l JavaScript ${JXA_SCRIPT} ${params.to} ${params.from} ${params.file} ${params.subject} ${messageArg}`;
 
   const result = await proc.quiet();
 

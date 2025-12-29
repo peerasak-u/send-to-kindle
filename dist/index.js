@@ -135,22 +135,8 @@ async function validateEmailParams(params) {
 var SCRIPT_DIR = import.meta.dir;
 var JXA_SCRIPT = `${SCRIPT_DIR}/../scripts/send-email.js`;
 async function sendEmail(params) {
-  const args = [
-    params.to,
-    params.from,
-    params.file,
-    params.subject
-  ];
-  if (params.message) {
-    args.push(params.message);
-  }
-  const proc = Bun.$([
-    "osascript",
-    "-l",
-    "JavaScript",
-    JXA_SCRIPT,
-    ...args
-  ]);
+  const messageArg = params.message ? `"${params.message}"` : "";
+  const proc = Bun.$`osascript -l JavaScript ${JXA_SCRIPT} ${params.to} ${params.from} ${params.file} ${params.subject} ${messageArg}`;
   const result = await proc.quiet();
   if (result.exitCode !== 0) {
     const stderr = result.stderr.toString().trim();
