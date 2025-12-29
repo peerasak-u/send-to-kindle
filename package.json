@@ -1,5 +1,5 @@
 {
-  "name": "@peerasak/send-to-kindle",
+  "name": "@peerasak-u/send-to-kindle",
   "version": "1.0.1",
   "description": "A CLI tool for sending files to your Kindle via email using Apple Mail.app on macOS",
   "module": "index.ts",
