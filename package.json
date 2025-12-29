@@ -1,8 +1,14 @@
 {
-  "name": "apple-mail-cli",
+  "name": "send-to-kindle",
   "module": "index.ts",
   "type": "module",
   "private": true,
+  "scripts": {
+    "start": "bun run index.ts",
+    "dev": "bun --watch run index.ts",
+    "test": "bun test",
+    "build": "bun build index.ts --compile --outfile mail-cli"
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },

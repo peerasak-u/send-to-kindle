@@ -4,12 +4,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a CLI tool for interacting with the macOS Mail app via AppleScript from the terminal. The bridge between TypeScript and AppleScript enables programmatic control of Mail operations.
+**send-to-kindle** is a CLI tool for sending files to your Kindle via email using Apple Mail.app on macOS. The bridge between TypeScript and JXA (JavaScript for Automation) enables programmatic email sending with attachments.
 
 ### Key Concepts
 
-- **AppleScript Integration**: The core functionality uses AppleScript to communicate with Mail.app. AppleScript files (`.scpt`) are executed from TypeScript via `Bun.$` or similar mechanisms.
-- **macOS Only**: This tool only works on macOS since it relies on AppleScript and Mail.app.
+- **JXA Integration**: The core functionality uses JXA (JavaScript for Automation) to communicate with Mail.app. The JXA script at `scripts/send-email.js` is executed from TypeScript via `Bun.$`.
+- **macOS Only**: This tool only works on macOS since it relies on JXA and Mail.app.
 
 ## Development Commands
 
