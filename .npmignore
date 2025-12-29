@@ -1,0 +1,27 @@
+# Source files
+src/
+*.ts
+!dist/*.d.ts
+
+# Development
+.git/
+.gitignore
+.vscode/
+.idea/
+*.log
+
+# Testing
+test/
+tests/
+*.test.ts
+
+# Documentation (README is included by default)
+CLAUDE.md
+*.md
+!README.md
+
+# Misc
+.DS_Store
+.env
+.env.*
+node_modules/

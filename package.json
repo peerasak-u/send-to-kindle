@@ -1,18 +1,42 @@
 {
-  "name": "send-to-kindle",
+  "name": "@peerasak/send-to-kindle",
+  "version": "1.0.0",
+  "description": "A CLI tool for sending files to your Kindle via email using Apple Mail.app on macOS",
   "module": "index.ts",
   "type": "module",
-  "private": true,
+  "bin": {
+    "send-to-kindle": "./dist/index.js"
+  },
   "scripts": {
     "start": "bun run index.ts",
     "dev": "bun --watch run index.ts",
     "test": "bun test",
-    "build": "bun build index.ts --compile --outfile mail-cli"
+    "build": "bun build index.ts --outdir dist --target bun",
+    "prepublishOnly": "bun run build"
   },
   "devDependencies": {
     "@types/bun": "latest"
   },
   "peerDependencies": {
     "typescript": "^5"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "kindle",
+    "mail",
+    "cli",
+    "macos",
+    "email"
+  ],
+  "author": "peerasak-u",
+  "license": "MIT",
+  "engines": {
+    "bun": ">=1.0.0"
+  },
+  "files": [
+    "dist",
+    "scripts"
+  ]
 }
