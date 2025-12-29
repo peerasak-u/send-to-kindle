@@ -64,8 +64,8 @@ jobs:
           # Build the project (runs the version script which adds dist to git)
           bun run build
 
-          # Commit version change and tag
-          git add package.json package-lock.json
+          # Force add dist (it's in .gitignore) and commit version change
+          git add -f package.json dist
           git commit -m "chore: bump version to v${new_version}"
           git tag -a "v${new_version}" -m "v${new_version}"
 
