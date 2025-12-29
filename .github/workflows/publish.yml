@@ -58,10 +58,10 @@ jobs:
 
           echo "Bumping version: $bump_type"
 
-          # Bump version using npm version
-          new_version=$(npm version $bump_type -m "chore: bump version to %s" --no-git-tag-version | sed 's/^v//')
+          # Bump version using npm version (no git tag)
+          new_version=$(npm version $bump_type --no-git-tag-version | sed 's/^v//')
 
-          # Build the project (runs the version script which adds dist to git)
+          # Build the project
           bun run build
 
           # Force add dist (it's in .gitignore) and commit version change
