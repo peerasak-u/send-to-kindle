@@ -39,7 +39,7 @@ class UsageError extends CliError {
 }
 
 // src/cli.ts
-var VERSION = "1.0.10";
+var VERSION = "1.0.12";
 function showHelp() {
   console.log(`
 Apple Mail CLI - Send emails with attachments via Mail.app
@@ -133,10 +133,10 @@ async function validateEmailParams(params) {
 
 // src/mailer.ts
 var SCRIPT_DIR = import.meta.dir;
-var JXA_SCRIPT = `${SCRIPT_DIR}/../scripts/send-email.js`;
+var APPLESCRIPT_FILE = `${SCRIPT_DIR}/../scripts/send-email.scpt`;
 async function sendEmail(params) {
   const messageArg = params.message ? `"${params.message}"` : "";
-  const proc = Bun.$`osascript -l JavaScript ${JXA_SCRIPT} ${params.to} ${params.from} ${params.file} ${params.subject} ${messageArg}`;
+  const proc = Bun.$`osascript ${APPLESCRIPT_FILE} ${params.to} ${params.from} ${params.file} ${params.subject} ${messageArg}`;
   const result = await proc.quiet();
   if (result.exitCode !== 0) {
     const stderr = result.stderr.toString().trim();
